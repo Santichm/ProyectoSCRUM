@@ -41,6 +41,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabelCopyright = new javax.swing.JLabel();
         jLabelProyecto = new javax.swing.JLabel();
         jButtonElementos = new javax.swing.JButton();
+        jButtonPFNA = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -62,6 +63,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButtonElementos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonElementosActionPerformed(evt);
+            }
+        });
+
+        jButtonPFNA.setText("Mostrar PFNA");
+        jButtonPFNA.setEnabled(false);
+        jButtonPFNA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPFNAActionPerformed(evt);
             }
         });
 
@@ -123,10 +132,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelCopyright)
-                    .addComponent(jLabelProyecto)
-                    .addComponent(jButtonElementos))
-                .addContainerGap(155, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelCopyright)
+                            .addComponent(jLabelProyecto))
+                        .addContainerGap(155, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jButtonElementos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonPFNA)
+                        .addGap(63, 63, 63))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +150,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabelProyecto)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonElementos)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonElementos)
+                    .addComponent(jButtonPFNA))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
                 .addComponent(jLabelCopyright)
                 .addContainerGap())
@@ -155,6 +173,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 this.p = Parser.cargarArchivo(file);
                 this.jLabelProyecto.setText("Proyecto Actual: " + p.getNombre());
                 this.jButtonElementos.setEnabled(true);
+                this.jButtonPFNA.setEnabled(true);
             }
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -167,6 +186,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.p = new Proyecto(nombre);
             this.jLabelProyecto.setText("Proyecto Actual: " + nombre);
             this.jButtonElementos.setEnabled(true);
+            this.jButtonPFNA.setEnabled(true);
         }
     }//GEN-LAST:event_jMenuItemNuevoActionPerformed
 
@@ -175,6 +195,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.p = null;
         this.jLabelProyecto.setText("Proyecto Actual: No hay ningún proyecto abierto");
         this.jButtonElementos.setEnabled(false);
+        this.jButtonPFNA.setEnabled(false);
     }//GEN-LAST:event_jMenuItemCerrarActionPerformed
 
     private void jButtonElementosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElementosActionPerformed
@@ -206,6 +227,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Esta es una páctica realizada por Santiago Chaparro Martín y Carlos Porras Fernández\n"
                 + "donde implementamos una calculadora de punto función para la asignatura de CMEPPS.","Información de la práctica", 1);
     }//GEN-LAST:event_jMenuItemInfoActionPerformed
+
+    private void jButtonPFNAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPFNAActionPerformed
+        JFrame f = new VentanaPFNA(this.p);
+        f.setVisible(true);
+        f.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButtonPFNAActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,6 +273,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonElementos;
+    private javax.swing.JButton jButtonPFNA;
     private javax.swing.JLabel jLabelCopyright;
     private javax.swing.JLabel jLabelProyecto;
     private javax.swing.JMenu jMenuArchivo;

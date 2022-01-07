@@ -209,6 +209,7 @@ public class VentanaNuevoElemento extends javax.swing.JFrame {
             }
             e.calcularComplejidad();
             p.anadirElemento(e);
+            p.calcularPFNA();
             f.actualizarElementos();
             this.dispose();
         } catch(Exception E) {
