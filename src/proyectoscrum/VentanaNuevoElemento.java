@@ -5,6 +5,9 @@
  */
 package proyectoscrum;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Santi
@@ -12,11 +15,13 @@ package proyectoscrum;
 public class VentanaNuevoElemento extends javax.swing.JFrame {
 
     private Proyecto p;
+    private VentanaElemetos f;
     /**
      * Creates new form VentanaNuevoElemento
      */
-    public VentanaNuevoElemento(Proyecto p) {
+    public VentanaNuevoElemento(Proyecto p, VentanaElemetos f) {
         this.p = p;
+        this.f = f;
         initComponents();
         this.jLabelFRelacionados2.setVisible(false);
         this.jLabelDElementales2.setVisible(false);
@@ -195,7 +200,20 @@ public class VentanaNuevoElemento extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldFRelacionados2ActionPerformed
 
     private void jButtonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnadirActionPerformed
-        //Elemento e = new Elemento(this.jTextFieldNombre.getText(), (String)this.jComboBoxTipo.getSelectedItem(), );
+        try {
+            Elemento e;
+            if(!((String) this.jComboBoxTipo.getSelectedItem()).equalsIgnoreCase("CE")) {
+                e = new Elemento(this.jTextFieldNombre.getText(), (String)this.jComboBoxTipo.getSelectedItem(), Integer.parseInt(this.jTextFieldFrelacionados1.getText()), Integer.parseInt(this.jTextFieldDElementales1.getText()));
+            } else {
+                e = new Elemento(this.jTextFieldNombre.getText(), (String)this.jComboBoxTipo.getSelectedItem(), Integer.parseInt(this.jTextFieldFrelacionados1.getText()), Integer.parseInt(this.jTextFieldDElementales1.getText()), Integer.parseInt(this.jTextFieldFRelacionados2.getText()), Integer.parseInt(this.jTextFieldDElementales2.getText()));
+            }
+            e.calcularComplejidad();
+            p.anadirElemento(e);
+            f.actualizarElementos();
+            this.dispose();
+        } catch(Exception E) {
+            JOptionPane.showMessageDialog(null,"Error a la hora de introducir los datos");
+        }
     }//GEN-LAST:event_jButtonAnadirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

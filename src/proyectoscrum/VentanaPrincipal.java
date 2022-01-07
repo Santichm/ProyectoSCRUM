@@ -5,8 +5,14 @@
  */
 package proyectoscrum;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -79,6 +85,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuArchivo.add(jSeparatorMenu);
 
         jMenuItemGuardar.setText("Guardar");
+        jMenuItemGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGuardarActionPerformed(evt);
+            }
+        });
         jMenuArchivo.add(jMenuItemGuardar);
 
         jMenuItemCerrar.setText("Cerrar proyecto");
@@ -94,6 +105,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuAyuda.setText("Ayuda");
 
         jMenuItemInfo.setText("Información práctica");
+        jMenuItemInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemInfoActionPerformed(evt);
+            }
+        });
         jMenuAyuda.add(jMenuItemInfo);
 
         jMenuBar1.add(jMenuAyuda);
@@ -128,18 +144,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCargarActionPerformed
-        // TODO add your handling code here:
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("ProyectoSCRUM", "proyect");
+            fileChooser.setFileFilter(filter);
+            fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+            fileChooser.showOpenDialog(this);
+            File file = fileChooser.getSelectedFile();
+            if (file != null) {
+                this.p = Parser.cargarArchivo(file);
+                this.jLabelProyecto.setText("Proyecto Actual: " + p.getNombre());
+                this.jButtonElementos.setEnabled(true);
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItemCargarActionPerformed
 
     private void jMenuItemNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoActionPerformed
-        String nombre = JOptionPane.showInputDialog(this, "Introduce el nombre del proyecto:");
-        this.p = new Proyecto(nombre);
-        this.jLabelProyecto.setText("Proyecto Actual: " + nombre);
-        this.jButtonElementos.setEnabled(true);
+        String nombre = JOptionPane.showInputDialog(this, "Introduce el nombre del proyecto:", "Nuevo Proyecto", 3);
+        if(nombre != null) {
+            this.p = new Proyecto(nombre);
+            this.jLabelProyecto.setText("Proyecto Actual: " + nombre);
+            this.jButtonElementos.setEnabled(true);
+        }
     }//GEN-LAST:event_jMenuItemNuevoActionPerformed
 
     private void jMenuItemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCerrarActionPerformed
-        JOptionPane.showMessageDialog(this, "Proyecto cerrado correctamente.");
+        JOptionPane.showMessageDialog(this, "Proyecto cerrado correctamente.", "Cerrar Proyecto", 2);
         this.p = null;
         this.jLabelProyecto.setText("Proyecto Actual: No hay ningún proyecto abierto");
         this.jButtonElementos.setEnabled(false);
@@ -150,6 +182,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         f.setVisible(true);
         f.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButtonElementosActionPerformed
+
+    private void jMenuItemGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarActionPerformed
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("ProyectoSCRUM", "proyect");
+            fileChooser.setFileFilter(filter);
+            fileChooser.setDialogType(JFileChooser.SAVE_DIALOG);
+            fileChooser.showOpenDialog(this);
+            File file = fileChooser.getSelectedFile();
+            if (file != null) {
+                if (!file.getName().endsWith(".proyect")) {
+                    file = new File(file.toString() + ".proyect");
+                }
+                Parser.guardarArchivo(p, file);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItemGuardarActionPerformed
+
+    private void jMenuItemInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInfoActionPerformed
+        JOptionPane.showMessageDialog(this, "Esta es una páctica realizada por Santiago Chaparro Martín y Carlos Porras Fernández\n"
+                + "donde implementamos una calculadora de punto función para la asignatura de CMEPPS.","Información de la práctica", 1);
+    }//GEN-LAST:event_jMenuItemInfoActionPerformed
 
     /**
      * @param args the command line arguments

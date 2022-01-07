@@ -6,6 +6,7 @@
 package proyectoscrum;
 
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +22,9 @@ public class VentanaElemetos extends javax.swing.JFrame {
         this.p = p;
         this.setTitle("Elementos Funcionales");
         initComponents();
+        
+        this.actualizarElementos();
+        
     }
 
     /**
@@ -44,11 +48,11 @@ public class VentanaElemetos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Tipo", "Ficheros Relacionados", "Datos Elementales", "Complejidad"
+                "Nombre", "Tipo", "F. Relacionados 1", "D. Elementales 1", "F.Relacionados 1", "D. Elementales 2", "Complejidad E", "Complejidad S", "Complejidad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -65,6 +69,11 @@ public class VentanaElemetos extends javax.swing.JFrame {
         });
 
         jButtonEliminar.setText("Eliminar Elemento");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,7 +82,7 @@ public class VentanaElemetos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonAnadir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -85,7 +94,7 @@ public class VentanaElemetos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnadir)
                     .addComponent(jButtonEliminar))
@@ -96,10 +105,16 @@ public class VentanaElemetos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnadirActionPerformed
-        JFrame f = new VentanaNuevoElemento(this.p);
+        JFrame f = new VentanaNuevoElemento(this.p, this);
         f.setVisible(true);
         f.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButtonAnadirActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        int pos = this.jTableTabla.getSelectedRow();
+        this.p.eliminarElemento(pos);
+        this.actualizarElementos();
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnadir;
@@ -107,4 +122,12 @@ public class VentanaElemetos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTabla;
     // End of variables declaration//GEN-END:variables
+
+    public void actualizarElementos() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableTabla.getModel();
+        modelo.setRowCount(0);
+        for(Elemento temp : p.getElementos()) {
+            modelo.addRow(new Object[]{temp.getNombre(), temp.getTipo(), temp.getFicheros(), temp.getDatos(), temp.getFicherosS(), temp.getDatosS(), temp.getC1(), temp.getC2(), temp.getComplejidad()});   
+        }
+    }
 }

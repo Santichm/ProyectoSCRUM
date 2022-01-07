@@ -5,13 +5,14 @@
  */
 package proyectoscrum;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Santi
  */
-public class Proyecto {
+public class Proyecto implements Serializable{
     
     private String nombre;
     private ArrayList<Elemento> elementos;
@@ -23,6 +24,10 @@ public class Proyecto {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public ArrayList<Elemento> getElementos() {
+        return elementos;
     }
 
     public void setNombre(String nombre) {
