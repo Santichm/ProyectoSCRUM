@@ -16,7 +16,9 @@ public class Proyecto implements Serializable{
     
     private String nombre;
     private ArrayList<Elemento> elementos;
-    private int pfnaEE, pfnaSE, pfnaFLI, pfnaFLE, pfnaCE;
+    private int[] caracteristicas;
+    private int pfnaEE, pfnaSE, pfnaFLI, pfnaFLE, pfnaCE, sva;
+    private double fa, pfa;
     
     public Proyecto(String nombre) {
         this.nombre = nombre;
@@ -26,6 +28,26 @@ public class Proyecto implements Serializable{
         this.pfnaFLI = 0;
         this.pfnaFLE = 0;
         this.pfnaCE = 0;
+        this.sva = 0;
+        this.fa = 0.65 + (0.01*this.sva);
+        this.pfa = (this.pfnaCE + this.pfnaEE + this.pfnaFLE + this.pfnaFLI + this.pfnaSE)*this.fa;
+        
+        this.caracteristicas = new int[14];
+        for(int i=0;i<14;i++){
+            this.caracteristicas[i] = 0;
+        }
+    }
+
+    public void setSva(int sva) {
+        this.sva = sva;
+    }
+
+    public int getSva() {
+        return sva;
+    }
+
+    public int[] getCaracteristicas() {
+        return caracteristicas;
     }
 
     public int getPfnaEE() {
@@ -66,6 +88,10 @@ public class Proyecto implements Serializable{
     
     public void eliminarElemento(int pos) {
         this.elementos.remove(pos);
+    }
+    
+    public void anadirCaracteristica(int pos, int valor) {
+        this.caracteristicas[pos] = valor;
     }
     
     public void calcularPFNA() {
@@ -128,6 +154,19 @@ public class Proyecto implements Serializable{
                     break; 
             }
         }
+    }
+    
+    public void calcularPFA() {
+        this.fa = 0.65 + (0.01*this.sva);
+        this.pfa = (this.pfnaCE + this.pfnaEE + this.pfnaFLE + this.pfnaFLI + this.pfnaSE)*this.fa;
+    }
+
+    public double getFa() {
+        return fa;
+    }
+
+    public double getPfa() {
+        return pfa;
     }
     
 }

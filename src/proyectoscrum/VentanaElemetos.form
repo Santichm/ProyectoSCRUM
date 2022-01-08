@@ -68,7 +68,7 @@
                 <Column editable="true" title="Tipo" type="java.lang.String"/>
                 <Column editable="true" title="F. Relacionados 1" type="java.lang.Object"/>
                 <Column editable="true" title="D. Elementales 1" type="java.lang.Object"/>
-                <Column editable="true" title="F.Relacionados 1" type="java.lang.Object"/>
+                <Column editable="true" title="F.Relacionados 2" type="java.lang.Object"/>
                 <Column editable="true" title="D. Elementales 2" type="java.lang.Object"/>
                 <Column editable="true" title="Complejidad E" type="java.lang.String"/>
                 <Column editable="true" title="Complejidad S" type="java.lang.String"/>

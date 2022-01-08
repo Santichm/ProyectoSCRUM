@@ -42,6 +42,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabelProyecto = new javax.swing.JLabel();
         jButtonElementos = new javax.swing.JButton();
         jButtonPFNA = new javax.swing.JButton();
+        jButtonCGenerales = new javax.swing.JButton();
+        jButtonPFA = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuArchivo = new javax.swing.JMenu();
         jMenuItemNuevo = new javax.swing.JMenuItem();
@@ -71,6 +73,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButtonPFNA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPFNAActionPerformed(evt);
+            }
+        });
+
+        jButtonCGenerales.setText("Características generales");
+        jButtonCGenerales.setEnabled(false);
+        jButtonCGenerales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCGeneralesActionPerformed(evt);
+            }
+        });
+
+        jButtonPFA.setText("Mostrar PFA");
+        jButtonPFA.setEnabled(false);
+        jButtonPFA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPFAActionPerformed(evt);
             }
         });
 
@@ -139,9 +157,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addContainerGap(155, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jButtonElementos)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonCGenerales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonElementos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonPFNA)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonPFNA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonPFA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(63, 63, 63))))
         );
         layout.setVerticalGroup(
@@ -153,7 +175,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonElementos)
                     .addComponent(jButtonPFNA))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCGenerales)
+                    .addComponent(jButtonPFA))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(jLabelCopyright)
                 .addContainerGap())
         );
@@ -174,6 +200,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 this.jLabelProyecto.setText("Proyecto Actual: " + p.getNombre());
                 this.jButtonElementos.setEnabled(true);
                 this.jButtonPFNA.setEnabled(true);
+                this.jButtonCGenerales.setEnabled(true);
+                this.jButtonPFA.setEnabled(true);
             }
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -187,6 +215,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.jLabelProyecto.setText("Proyecto Actual: " + nombre);
             this.jButtonElementos.setEnabled(true);
             this.jButtonPFNA.setEnabled(true);
+            this.jButtonCGenerales.setEnabled(true);
+            this.jButtonPFA.setEnabled(true);
         }
     }//GEN-LAST:event_jMenuItemNuevoActionPerformed
 
@@ -196,6 +226,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.jLabelProyecto.setText("Proyecto Actual: No hay ningún proyecto abierto");
         this.jButtonElementos.setEnabled(false);
         this.jButtonPFNA.setEnabled(false);
+        this.jButtonCGenerales.setEnabled(false);
+        this.jButtonPFA.setEnabled(false);
     }//GEN-LAST:event_jMenuItemCerrarActionPerformed
 
     private void jButtonElementosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElementosActionPerformed
@@ -233,6 +265,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         f.setVisible(true);
         f.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButtonPFNAActionPerformed
+
+    private void jButtonCGeneralesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCGeneralesActionPerformed
+        JFrame f = new VentanaCaracteristicas(this.p);
+        f.setVisible(true);
+        f.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButtonCGeneralesActionPerformed
+
+    private void jButtonPFAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPFAActionPerformed
+        JFrame f = new VentanaPFA(this.p);
+        f.setVisible(true);
+        f.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButtonPFAActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,7 +316,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCGenerales;
     private javax.swing.JButton jButtonElementos;
+    private javax.swing.JButton jButtonPFA;
     private javax.swing.JButton jButtonPFNA;
     private javax.swing.JLabel jLabelCopyright;
     private javax.swing.JLabel jLabelProyecto;

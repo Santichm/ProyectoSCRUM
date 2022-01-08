@@ -202,6 +202,18 @@ public class VentanaNuevoElemento extends javax.swing.JFrame {
     private void jButtonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnadirActionPerformed
         try {
             Elemento e;
+            
+            for(Elemento temp : p.getElementos()) {
+                if(temp.getNombre().equalsIgnoreCase(this.jTextFieldNombre.getText())) {
+                    JOptionPane.showMessageDialog(null,"Nombre ya existente en la base de datos de elementos.");
+                    return;
+                }
+            }
+            
+            if(Integer.parseInt(this.jTextFieldFrelacionados1.getText()) < 0 || Integer.parseInt(this.jTextFieldDElementales1.getText()) < 0){
+                throw new Exception();
+            }
+            
             if(!((String) this.jComboBoxTipo.getSelectedItem()).equalsIgnoreCase("CE")) {
                 e = new Elemento(this.jTextFieldNombre.getText(), (String)this.jComboBoxTipo.getSelectedItem(), Integer.parseInt(this.jTextFieldFrelacionados1.getText()), Integer.parseInt(this.jTextFieldDElementales1.getText()));
             } else {
@@ -210,6 +222,7 @@ public class VentanaNuevoElemento extends javax.swing.JFrame {
             e.calcularComplejidad();
             p.anadirElemento(e);
             p.calcularPFNA();
+            p.calcularPFA();
             f.actualizarElementos();
             this.dispose();
         } catch(Exception E) {

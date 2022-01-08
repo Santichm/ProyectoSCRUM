@@ -48,7 +48,7 @@ public class VentanaElemetos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Tipo", "F. Relacionados 1", "D. Elementales 1", "F.Relacionados 1", "D. Elementales 2", "Complejidad E", "Complejidad S", "Complejidad"
+                "Nombre", "Tipo", "F. Relacionados 1", "D. Elementales 1", "F.Relacionados 2", "D. Elementales 2", "Complejidad E", "Complejidad S", "Complejidad"
             }
         ) {
             Class[] types = new Class [] {
